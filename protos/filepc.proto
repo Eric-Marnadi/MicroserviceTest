@@ -1,0 +1,13 @@
+syntax="proto3";
+
+service FileGetter {
+  rpc GetFile(FileRequest) returns (FileResponse);
+}
+message FileRequest {
+  string filename = 1;
+  string extension = 2;
+}
+message FileResponse {
+  string filename = 1;
+  bytes content = 2;
+}

@@ -14,8 +14,8 @@ ADD . /app
 WORKDIR /app
 ## we run go build to compile the binary
 ## executable of our Go program
-RUN go build wiki.go
+RUN go build server.go
 EXPOSE 8081
 ## Our start command which kicks off
 ## our newly created binary executable
-CMD ["./wiki 8081"]
+CMD ["./server 8081"]

@@ -1,1 +1,2 @@
-package main
+package filesystem
+func main() {}

@@ -1,6 +1,6 @@
 syntax="proto3";
 
-service FileGetter {
+service File {
   rpc GetFile(FileRequest) returns (FileResponse);
 }
 message FileRequest {

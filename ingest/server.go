@@ -7,24 +7,14 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"../protos/"
 )
 
 type Page struct {
 	Title string
 	Body  []byte
 }
-func (p *Page) save() error {
-	filename := p.Title + ".txt"
-	return ioutil.WriteFile(filename, p.Body, 0600)
-}
-func loadPage(title string) (*Page, error) {
-	filename := title + ".txt"
-	body, err := ioutil.	ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	return &Page{Title: title, Body: body}, nil
-}
+
 func parseRequest(r http.Request, prefix string) (map[string]string) {
 	request := r.URL.Path[len(prefix):]
 	tokens := strings.Split(request, "&")
@@ -40,6 +30,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	p, _ := loadPage(title)
 	fmt.Fprintf(w, "<div>%s</div>", p.Body)
 }
+
 func createHandler(w http.ResponseWriter, r *http.Request) {
 	m := parseRequest(*r, "/create/")
 	fmt.Fprintf(w, "<div>%s</div>", m)

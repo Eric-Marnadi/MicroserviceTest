@@ -1,2 +1,2 @@
-package filesystem
+package main
 func main() {}

@@ -1,3 +1,4 @@
+.PHONY: protos
 build:
 	go build -o bin/server ingest/server.go
 	go build -o bin/getfiles filesystem/getfiles.go

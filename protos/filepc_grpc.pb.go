@@ -30,7 +30,7 @@ func NewExplorerClient(cc grpc.ClientConnInterface) ExplorerClient {
 
 func (c *explorerClient) GetFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, "/Explorer/GetFile", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/main.Explorer/GetFile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func _Explorer_GetFile_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Explorer/GetFile",
+		FullMethod: "/main.Explorer/GetFile",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExplorerServer).GetFile(ctx, req.(*FileRequest))
@@ -84,7 +84,7 @@ func _Explorer_GetFile_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Explorer_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "Explorer",
+	ServiceName: "main.Explorer",
 	HandlerType: (*ExplorerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

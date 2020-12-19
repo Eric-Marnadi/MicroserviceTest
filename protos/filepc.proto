@@ -1,6 +1,6 @@
 syntax="proto3";
 package main;
-option go_package = "filepc";
+option go_package = ".;filepc";
 
 service Explorer {
   rpc GetFile(FileRequest) returns (FileResponse) {}

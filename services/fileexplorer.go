@@ -1,7 +1,7 @@
 package main
 
 import (
-	filepc "DSLabs/gowiki/protos"
+	. "DSLabs/gowiki/protos"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -9,20 +9,13 @@ import (
 	"net"
 	"os"
 )
-type FileExplorerServer struct {
-
-}
-
-func (f FileExplorerServer) GetFile(ctx context.Context, f2 *interface{}) (*interface{}, error) {
-	panic("implement me")
-}
-
-func (f FileExplorerServer) mustEmbedUnimplementedExplorerServer() {
-	panic("implement me")
+// HelloServiceServer is the server API for HelloService service.
+type FileExplorerServer interface {
+	Hello(context.Context, *FileRequest) (*FileResponse)
 }
 
 func main() {
-	address := "0.0.0.0:" + os.Args[1]
+	address := "127.0.0.1:" + os.Args[1]
 	lis, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatalf("Error %v", err)
@@ -31,7 +24,5 @@ func main() {
 
 	s := grpc.NewServer()
 	filepc.RegisterExplorerServer(s, &FileExplorerServer{})
-
-
 	s.Serve(lis)
 }

@@ -1,6 +1,5 @@
 syntax="proto3";
 package protos;
-
 service Explorer {
   rpc GetFile(FileRequest) returns (FileResponse) {}
 }

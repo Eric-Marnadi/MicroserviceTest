@@ -9,9 +9,11 @@ import (
 	"log"
 	"net"
 	"os"
+
 )
 
 type FileExplorerServer struct {
+	filepc.UnimplementedExplorerServer
 }
 func (s FileExplorerServer) GetFile(ctx context.Context, request *filepc.FileRequest) (*filepc.FileResponse, error) {
 	body, _ := ioutil.ReadFile(request.Filename + "." + request.Extension)
@@ -19,10 +21,9 @@ func (s FileExplorerServer) GetFile(ctx context.Context, request *filepc.FileReq
 		Filename: request.Filename,
 		Content:  body,
 	}
+
 	return response, nil
 }
-func (s *FileExplorerServer) mustEmbedUnimplementedExplorerServer() {}
-// HelloServiceServer is the server API for HelloService service.
 
 func main() {
 	address := "127.0.0.1:" + os.Args[1]
@@ -34,6 +35,6 @@ func main() {
 
 	s := grpc.NewServer()
 	var fes filepc.ExplorerServer = FileExplorerServer{}
-	filepc.RegisterExplorerServer(s, &fes)
+	filepc.RegisterExplorerServer(s, fes)
 	s.Serve(listen)
 }

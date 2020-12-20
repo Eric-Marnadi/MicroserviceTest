@@ -3,7 +3,6 @@
 package filepc
 
 import (
-	"DSLabs/gowiki/services"
 	context "context"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -62,7 +61,7 @@ type UnsafeExplorerServer interface {
 	mustEmbedUnimplementedExplorerServer()
 }
 
-func RegisterExplorerServer(s grpc.ServiceRegistrar, srv *main.FileExplorerServer) {
+func RegisterExplorerServer(s grpc.ServiceRegistrar, srv *ExplorerServer) {
 	s.RegisterService(&_Explorer_serviceDesc, srv)
 }
 

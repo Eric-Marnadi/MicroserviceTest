@@ -1,15 +1,15 @@
 package main
 
 import (
-	filepc "DSLabs/gowiki/protos"
+	. "DSLabs/gowiki/protos"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
-	"io/ioutil"
 	"log"
 	"net"
 	"os"
 )
+<<<<<<< HEAD:fileservices/fileexplorer.go
 type FileExplorerServer struct {
 }
 func (s FileExplorerServer) GetFile(ctx context.Context, request *filepc.FileRequest) (*filepc.FileResponse, error) {
@@ -21,6 +21,12 @@ func (s FileExplorerServer) GetFile(ctx context.Context, request *filepc.FileReq
 	return response, nil
 }
 func (s *FileExplorerServer) mustEmbedUnimplementedExplorerServer() {}
+=======
+// HelloServiceServer is the server API for HelloService service.
+type FileExplorerServer interface {
+	Hello(context.Context, *FileRequest) (*FileResponse)
+}
+>>>>>>> parent of 05da951... uses rpc to handle request:services/fileexplorer.go
 
 func main() {
 	address := "127.0.0.1:" + os.Args[1]
@@ -29,6 +35,7 @@ func main() {
 		log.Fatalf("Error %v", err)
 	}
 	fmt.Printf("Server is listening on %v ...", address)
+
 	s := grpc.NewServer()
 	var fes filepc.ExplorerServer = FileExplorerServer{}
 	filepc.RegisterExplorerServer(s, &fes)

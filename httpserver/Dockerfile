@@ -16,7 +16,7 @@ ENV PATH=$PATH:$GOPATH/bin:/opt/protoc/bin
 
 # Copy the grpc proto file and generate the go module
 RUN mkdir -p /go/src/protos
-COPY ../protos/filepc.proto /go/src/protos
+COPY ./protos/filepc.proto /go/src/protos
 RUN cd /go/src && \
     protoc -I protos/ protos/filepc.proto --go-grpc_out=protos/ && \
     protoc -I=protos --go_out=protos protos/filepc.proto

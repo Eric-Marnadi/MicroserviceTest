@@ -1,7 +1,7 @@
 package main
 
 import (
-	filepc "DSLabs/microservicetest/protos"
+	filepc "protos"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -9,7 +9,6 @@ import (
 	"log"
 	"net"
 	"os"
-
 )
 
 type FileExplorerServer struct {

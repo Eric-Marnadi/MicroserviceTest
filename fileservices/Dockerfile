@@ -5,7 +5,8 @@ FROM golang:latest
 
 # Install grpc
 RUN go get -u google.golang.org/grpc && \
-    go get -u github.com/golang/protobuf/protoc-gen-go
+    go get -u github.com/golang/protobuf/protoc-gen-go && \
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 # Install protoc and zip system library
 RUN apt-get update && apt-get install -y zip && \
@@ -15,15 +16,15 @@ RUN apt-get update && apt-get install -y zip && \
 ENV PATH=$PATH:$GOPATH/bin:/opt/protoc/bin
 
 # Copy the grpc proto file and generate the go module
-RUN mkdir -p /go/src/protos
-COPY ../protos/filepc.proto /go/src/protos
-RUN cd /go/src && \
-    protoc -I protos/ protos/filepc.proto --go-grpc_out=protos/ && \
-    protoc -I=protos --go_out=protos protos/filepc.proto
-
+RUN mkdir -p /go/src/fileservices/protos
+COPY filepc.proto /go/src/fileservices/protos
+RUN cd /go/src/fileservices/
+#RUN protoc -I=protos --go_out=protos protos/filepc.proto
+#RUN protoc --go_out=. --go_opt=paths=source_relative \
+#        --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+#        protos/filepc.proto
 # Copy the project to be executed
-RUN mkdir -p /go/src/fileservices
 COPY fileexplorer.go /go/src/fileservices
 EXPOSE 8081
 EXPOSE 8082
-ENTRYPOINT cd /go/src/fileservices && go run fileexplorer.go 8082
+#ENTRYPOINT cd /go/src/fileservices && go run fileexplorer.go 8082

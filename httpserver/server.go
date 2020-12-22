@@ -1,7 +1,7 @@
 package main
 
 import (
-	filepc "DSLabs/microservicetest/protos"
+	filepc "protos"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
